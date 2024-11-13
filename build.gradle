@@ -19,6 +19,8 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
+    annotationProcessor ("org.projectlombok:lombok:1.18.32")
+    compileOnly ("org.projectlombok:lombok:1.18.32")
     compileOnly('jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1')
 //    compileOnly('jakarta.ejb:jakarta.ejb-api:4.0.1')
     compileOnly('jakarta.faces:jakarta.faces-api:4.0.1')
