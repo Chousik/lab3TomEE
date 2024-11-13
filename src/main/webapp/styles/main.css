@@ -1,0 +1,200 @@
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url("../fonts/PressStart2P-Regular.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', sans-serif;
+}
+body{
+    background: #FDF5DF;
+    padding: 2rem;
+}
+
+.main-container{
+    height: min-content;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+
+.input-container{
+    font-size: 1.3rem;
+    place-items: center;
+    display: grid;
+    grid-template:
+            "X C"
+            "Y C"
+            "R C";
+}
+
+
+.radio_container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-content: center;
+}
+
+.radio_container input{
+    transform:scale(1.4);
+    opacity:0.9;
+    cursor:pointer;
+}
+.radio_container label{
+    width: 100%;
+}
+.input_XYR{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    width: 90%;
+    height: 80%;
+    margin: 1rem 0.5rem 2rem 2rem;
+}
+
+.input_XYR>label, div, input{
+    text-align: right;
+    align-content: center;
+    justify-content: center;
+}
+
+.slider{
+    justify-content: center;
+    margin: 1rem;
+    height: 1.5rem;
+    width: 70%;
+    border-radius: 5px;
+}
+
+.form_radio{
+    margin: 0.2rem;
+}
+
+.element{
+    background: #5EBEC4;
+    border: 0.1rem dashed;
+    border-radius: 1rem;
+}
+
+.input{
+    text-align: left;
+    font-size: 1.3rem;
+    margin: 1rem;
+    height: 1.5rem;
+    width: 70%;
+    border-radius: 5px;
+    /*box-shadow: 0 0 10px #90908f;*/
+}
+
+.canvas-container{
+    grid-area: C;
+    height: 400px;
+    width: 400px;
+    margin: 0.5rem 2rem 1rem 0;
+    display: grid;
+    place-items: center;
+}
+
+.input_text{
+    text-align: right;
+}
+
+.button-container{
+    width: 50%;
+    margin: 1rem 0 1rem 4rem;
+    place-items: center;
+    align-items: center;
+}
+
+
+
+.buttons{
+    background: #F92C85;
+    width: 90%;
+    height: 120%;
+    font-size: 2rem;
+    align-items: center;
+    text-align: center;
+    border: 0.1rem dashed;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.buttons:active{
+    background: #ff0100;
+}
+
+
+@media  (max-width: 1200px) {
+    .input-container {
+        height: 100%;
+        display: grid;
+        grid-template:
+            "X"
+            "Y"
+            "R"
+            "C"
+    }
+    .button-container{
+        width: 100%;
+        margin: 0;
+    }
+}
+
+.input_XYR .radio_container .form_radio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-X{
+    grid-area: X;
+}
+
+.input-Y{
+    grid-area: Y;
+}
+
+.input-R{
+    grid-area: R;
+}
+
+.canvas{
+    display: inline-block;
+}
+
+.table{
+    width: 100%;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.result-table{
+    margin: 0.5rem 3rem 0 0;
+    height: min-content;
+}
+
+.result-table{
+    background: #bacccc;
+}
+
+#head-table{
+    background: #5EBEC4;
+}
+
+@media  (max-width: 2000px) {
+    .main-container{
+        width: 100%;
+    }
+    .result-table{
+        margin: 1rem 5rem 0 5rem;
+    }
+}
+
+.table td{
+    padding: 0 0.5rem 0 0.5rem;
+}
