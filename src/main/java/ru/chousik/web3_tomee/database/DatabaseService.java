@@ -1,13 +1,18 @@
 package ru.chousik.web3_tomee.database;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import lombok.NoArgsConstructor;
 import ru.chousik.web3_tomee.models.Point;
 
 import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 
-@ApplicationScoped
+
+@Named
+@SessionScoped
 public class DatabaseService implements Serializable {
     public void addPoint(Point point) {
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
@@ -75,6 +80,11 @@ public class DatabaseService implements Serializable {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres_webapp";
 
     static {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Таблица уже пизда!");
+        }
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(CREATE_TABLE)) {
             statement.execute();

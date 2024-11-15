@@ -1,11 +1,14 @@
 package ru.chousik.web3_tomee.services;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import ru.chousik.web3_tomee.models.Point;
 
 import java.io.Serializable;
 
-@ApplicationScoped
+@Named
+@SessionScoped
 public class PointsService implements ServiceInterface<Point>, Serializable {
     private static final double MAX_R = 4;
     private static final double MIN_R = 1;
