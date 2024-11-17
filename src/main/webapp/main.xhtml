@@ -15,26 +15,22 @@
         <div class="all">
             <div class="main-container">
                 <div class="input-container">
-                    <div class="input_XYR element">
-                        <p:inputText id="XValue" name="x" value="#{pointBean.selectedX}" readonly="true" disabled="true"/>
-                        <div class="div">
+                    <div class="element">
+                        <h:form id="form" styleClass="form">
+                        <label for="X" class="form__label">X</label>
+                        <div id="xSlider" class="form__row">
+                            <p:inputText id="XValue" name="x" value="#{pointBean.selectedX}" readonly="true" disabled="true"/>
                             <p:slider for="XValue" display="XValue" range="false" minValue="-4.9" maxValue="4.9" step="0.1" />
                             <h:inputHidden id="X" name="x" value="#{pointBean.selectedX}">
+                                <f:validator validatorId="validatorX"/>
                             </h:inputHidden>
                         </div>
+                        </h:form>
                     </div>
                     <div class="input_XYR element">
                         <label for="Y_input" class="input_text">Input Y:</label>
                         <h:inputText name="Y-input" id="Y_input" placeholder="-3..3"
-                                     class="input" value="#{pointBean.selectedY}" />
-                    </div>
-                    <div class="input_XYR element">
-                        <div class="div">
-                            <label class="slider-label" for="r-slider">Изменение R:</label>
-                            <span id="r-value" class="slider-value">#{pointBean.selectedR}</span>
-                        </div>
-                        <input type="range" id="r-slider" class="slider" min="1" max="4" step="0.5"
-                               value="#{pointBean.selectedR}" oninput="updateValue('r-value', this.value)" />
+                                     class="input" value="#{pointBean.selectedX}" />
                     </div>
                     <div class="canvas-container element" id="canvas-container">
                         <canvas id="canvas" class="canvas">Your browser is not supported</canvas>

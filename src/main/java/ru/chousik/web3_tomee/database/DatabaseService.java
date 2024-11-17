@@ -4,6 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import lombok.NoArgsConstructor;
+import ru.chousik.web3_tomee.beans.PointBean;
 import ru.chousik.web3_tomee.models.Point;
 
 import java.io.Serializable;
@@ -24,7 +25,6 @@ public class DatabaseService implements Serializable {
             statement.setBoolean(4, point.isInFlag());
             statement.setString(5, point.getTime());
             statement.setLong(6, point.getExecutionTime());
-
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

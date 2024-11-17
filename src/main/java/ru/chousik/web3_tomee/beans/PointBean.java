@@ -22,9 +22,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Named("pointBean")
-@SessionScoped
 @Getter
 @Setter
+@ApplicationScoped
 public class PointBean implements Serializable {
     private double selectedX = 0;
     private double selectedY;

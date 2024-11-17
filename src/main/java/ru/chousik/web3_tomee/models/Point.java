@@ -17,6 +17,7 @@ public class Point implements Serializable {
     private static final long serialVersionUID = -5170875020617735653L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable=false, unique=true)
     private int id;
 
