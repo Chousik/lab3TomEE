@@ -14,7 +14,10 @@ body{
     background: #FDF5DF;
     padding: 2rem;
 }
-
+.all{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
 .main-container{
     height: min-content;
     display: grid;
@@ -43,6 +46,17 @@ body{
     transform:scale(1.4);
     opacity:0.9;
     cursor:pointer;
+}
+.buttons{
+    background: #F92C85;
+    width: 90%;
+    height: 120%;
+    font-size: 2rem;
+    align-items: center;
+    text-align: center;
+    border: 0.1rem dashed;
+    border-radius: 0.5rem;
+    cursor: pointer;
 }
 .radio_container label{
     width: 100%;
@@ -112,17 +126,6 @@ body{
 
 
 
-.buttons{
-    background: #F92C85;
-    width: 90%;
-    height: 120%;
-    font-size: 2rem;
-    align-items: center;
-    text-align: center;
-    border: 0.1rem dashed;
-    border-radius: 0.5rem;
-    cursor: pointer;
-}
 
 .buttons:active{
     background: #ff0100;
@@ -186,12 +189,16 @@ body{
     background: #5EBEC4;
 }
 
-@media  (max-width: 2000px) {
+@media  (max-width: 2200px) {
     .main-container{
         width: 100%;
     }
     .result-table{
         margin: 1rem 5rem 0 5rem;
+    }
+    .all{
+        display: grid;
+        grid-template-columns: 1fr;
     }
 }
 

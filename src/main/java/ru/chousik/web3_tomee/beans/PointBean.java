@@ -19,6 +19,8 @@ import ru.chousik.web3_tomee.services.PointsService;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Named("pointBean")
@@ -42,6 +44,7 @@ public class PointBean implements Serializable {
     public void loadPointsFromDb() {
         entityManager = Persistence.createEntityManagerFactory("PostgresPU").createEntityManager();
         points = entityManager.createQuery("SELECT p FROM Point p", Point.class).getResultList();
+        Collections.reverse(points);
     }
 
     public void checkPoint() {
@@ -67,7 +70,7 @@ public class PointBean implements Serializable {
         entityManager.persist(point);  // Сохраняем точку
         entityManager.getTransaction().commit();  // Фиксируем транзакцию
 
-        points.add(point);
+        points.add(0, point);
         this.point = point;
     }
 }

@@ -3,75 +3,81 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Лабораторная работа №1</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="styles/main.css"/>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"/>
+    <script src="scripts/script.js"/>
+    <script src="scripts/canvas.js"/>
+    <link rel="stylesheet" href="styles/main.css" />
 </h:head>
 <h:body>
-    <h:form>
         <div class="all">
             <div class="main-container">
+                <h:form>
                 <div class="input-container">
-                    <div class="element">
-                        <h:form id="form" styleClass="form">
-                        <label for="X" class="form__label">X</label>
-                        <div id="xSlider" class="form__row">
-                            <p:inputText id="XValue" name="x" value="#{pointBean.selectedX}" readonly="true" disabled="true"/>
-                            <p:slider for="XValue" display="XValue" range="false" minValue="-4.9" maxValue="4.9" step="0.1" />
-                            <h:inputHidden id="X" name="x" value="#{pointBean.selectedX}">
-                                <f:validator validatorId="validatorX"/>
+                    <div class="input_XYR element">
+                        <p:inputText id="xValueDisplay" value="#{pointBean.selectedX}" readonly="true" styleClass="input-field" />
+                        <p:slider for="xValue" value="#{pointBean.selectedX}" minValue="-3" maxValue="3" step="0.5" style="width: 210px;">
+                            <p:ajax update="xValueDisplay" />
+                        </p:slider>
+                            <h:inputHidden id="xValue" name="x" value="#{pointBean.selectedX}">
                             </h:inputHidden>
-                        </div>
-                        </h:form>
                     </div>
                     <div class="input_XYR element">
                         <label for="Y_input" class="input_text">Input Y:</label>
-                        <h:inputText name="Y-input" id="Y_input" placeholder="-3..3"
-                                     class="input" value="#{pointBean.selectedX}" />
+                        <h:inputText name="Y-input" id="Y_input" placeholder="-5..5"
+                                     class="input" value="#{pointBean.selectedY}" />
+                    </div>
+                    <div class="input_XYR element">
+                        <p:inputText id="rValueDisplay" value="#{pointBean.selectedR}" readonly="true" styleClass="input-field" />
+                        <p:slider for="rValue" id="rSlider" minValue="1" maxValue="4" step="0.5" style="width: 210px;" />
+                        <h:inputHidden id="rValue" name="r" value="#{pointBean.selectedR}">
+                        </h:inputHidden>
                     </div>
                     <div class="canvas-container element" id="canvas-container">
                         <canvas id="canvas" class="canvas">Your browser is not supported</canvas>
                     </div>
                 </div>
                 <div class="button-container">
-                    <h:commandButton class="buttons" id="check_button" value="Check" action="#{pointBean.checkPoint()}"/>
+                    <p:commandButton class="buttons" id="check_button" value="Check"
+                                     action="#{pointBean.checkPoint()}" update="result_table_wrapper" />
                 </div>
+                </h:form>
             </div>
+            <h:panelGroup id="result_table_wrapper">
+            <div class="result-table">
+                <table id="result_table" class="table">
+                    <thead>
+                    <tr id="head-table">
+                        <th>X</th>
+                        <th>Y</th>
+                        <th>R</th>
+                        <th>Result</th>
+                        <th>Current Time</th>
+                        <th>Execution Time (µs)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ui:repeat value="#{pointBean.points}" var="point">
+                        <tr>
+                            <td>#{point.x}</td>
+                            <td>#{point.y}</td>
+                            <td>#{point.r}</td>
+                            <td>#{point.inFlag}</td>
+                            <td>#{point.time}</td>
+                            <td>#{point.executionTime}</td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+            </div>
+            </h:panelGroup>
         </div>
-    </h:form>
-    <div class="result-table">
-        <table id="result_table" class="table">
-            <thead>
-            <tr id="head-table">
-                <th>X</th>
-                <th>Y</th>
-                <th>R</th>
-                <th>Result</th>
-                <th>Current Time</th>
-                <th>Execution Time (µs)</th>
-            </tr>
-            </thead>
-            <tbody>
-            <ui:repeat value="#{pointBean.points}" var="point">
-                <tr>
-                    <td>#{point.x}</td>
-                    <td>#{point.y}</td>
-                    <td>#{point.r}</td>
-                    <td>#{point.inFlag}</td>
-                    <td>#{point.time}</td>
-                    <td>#{point.executionTime}</td>
-                </tr>
-            </ui:repeat>
-            </tbody>
-        </table>
-    </div>
 
     <script>
         function updateValue(id, value) {
-            const element = document.getElementById(id);
+            const element = document    .getElementById(id);
             if (element) {
                 element.textContent = value;
             }
