@@ -75,7 +75,6 @@ body{
     align-content: center;
     justify-content: center;
 }
-
 .slider{
     justify-content: center;
     margin: 1rem;
@@ -103,7 +102,6 @@ body{
     border-radius: 5px;
     /*box-shadow: 0 0 10px #90908f;*/
 }
-
 .canvas-container{
     grid-area: C;
     height: 400px;

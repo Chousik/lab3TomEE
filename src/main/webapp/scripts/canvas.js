@@ -1,4 +1,4 @@
-class Canvas {
+class Canvas2 {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext('2d');
@@ -19,15 +19,15 @@ class Canvas {
     drawFig(r) {
         const ctx = this.ctx;
         ctx.beginPath();
-        ctx.arc(180, 180, 24 * r, -Math.PI / 2, -Math.PI, true);
+        ctx.arc(180, 180, 12 * r, Math.PI, Math.PI/2, true);
         ctx.lineTo(180, 180);
-        ctx.lineTo(180, 180 - 24 * r);
+        ctx.lineTo(180 - 12 * r, 180);
         ctx.moveTo(180, 180);
-        ctx.lineTo(180 + 24 * r, 180);
-        ctx.lineTo(180, 180 + r * 12);
+        ctx.lineTo(180, 180 - 24 * r);
+        ctx.lineTo(180 - r * 12, 180);
         ctx.lineTo(180, 180);
         ctx.fill();
-        ctx.fillRect(180, 180 - r * 12, r * 24, r * 12);
+        ctx.fillRect(180, 180, r * 24, r * 24);
         ctx.beginPath();
     }
 
