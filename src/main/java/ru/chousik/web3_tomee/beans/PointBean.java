@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
 import ru.chousik.web3_tomee.database.DatabaseService;
 import ru.chousik.web3_tomee.models.Point;
 import ru.chousik.web3_tomee.services.PointsService;
@@ -49,7 +50,7 @@ public class PointBean implements Serializable {
             point.setInFlag(pointsService.check(point));
             point.setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             point.setExecutionTime(System.nanoTime() - startTime);
-            System.err.println(point);
+            PrimeFaces.current().executeScript("printDot(" + point.getX() + ", " + point.getY() + ", " + point.isInFlag() + ");");
             this.addPoint(point);
         }
     }

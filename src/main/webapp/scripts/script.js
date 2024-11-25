@@ -1,6 +1,6 @@
+let canvas;
 $(document).ready(function() {
-    const canvas = new Canvas('canvas');
-
+    canvas = new Canvas('canvas');
     function updateCanvas() {
         const rElement = document.getElementById("j_id_8:rValue");
         const rValue = parseFloat(rElement.value).toFixed(1);
@@ -25,33 +25,14 @@ $(document).ready(function() {
         const elementY = document.getElementById("j_id_8:Y_input");
         const tempY = elementY.value;
         elementY.value=yValue;
-
+        validateAll()
         document.getElementById("j_id_8:check_button").click();
-        if (validateAll()){
-        setTimeout(() => {
-            const tableRows = document.querySelectorAll("#result_table tbody tr");
-            const lastRow = tableRows[0];
-            const cell = lastRow.querySelectorAll("td")[3];
-            const status = cell.innerText === "true";
-            canvas.drawPoint(xValue, yValue, status)
-        }, 320);}
+
         elementX.value = tempX;
         elementY.value = tempY;
     });
     $("#j_id_8\\:check_button").click(function (){
-        if (validateAll()){
-            setTimeout(() => {
-                const tableRows = document.querySelectorAll("#result_table tbody tr");
-                const lastRow = tableRows[0];
-                const cell = lastRow.querySelectorAll("td")[3];
-                const status = cell.textContent.trim() === "true";
-                const elementY = document.getElementById("j_id_8:Y_input");
-                const yValue = parseFloat(elementY.value.replace(',', '.'));
-                const elementX = document.getElementById("j_id_8:xValue");
-                const xValue = parseFloat(elementX.value.replace(',', '.'));
-                canvas.drawPoint(xValue, yValue, status);
-            }, 320);
-        }
+        validateAll()
     })
     updateCanvas();
     $("#j_id_8\\:rSlider").on("slidechange", function() {
@@ -72,3 +53,6 @@ $(document).ready(function() {
         return { xValue, yValue };
     }
 });
+function printDot(xValue, yValue, isHit){
+    canvas.drawPoint(xValue, yValue, isHit);
+}
