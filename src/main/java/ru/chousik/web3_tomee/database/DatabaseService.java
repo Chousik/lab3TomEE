@@ -29,8 +29,12 @@ public class DatabaseService implements Serializable {
         entityManager.getTransaction().commit();
     }
 
-    public List<Point> getPoints() {
-        return manager().createQuery("SELECT p FROM Point p", Point.class).getResultList();
+    public List<Point> getPoints(String sessionId) {
+        EntityManager entityManager = manager();
+        return entityManager.createQuery(
+                        "SELECT p FROM Point p WHERE p.sessionId = :sessionId", Point.class)
+                .setParameter("sessionId", sessionId)
+                .getResultList();
     }
     static {
         try {

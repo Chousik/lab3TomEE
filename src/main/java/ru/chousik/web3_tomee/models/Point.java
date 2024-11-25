@@ -38,4 +38,7 @@ public class Point implements Serializable {
 
     @Column(name = "execution_time", nullable=false)
     private long executionTime;
+
+    @Column(name = "session_id")
+    private String sessionId;
 }

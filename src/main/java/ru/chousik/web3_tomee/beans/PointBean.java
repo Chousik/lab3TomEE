@@ -2,8 +2,10 @@ package ru.chousik.web3_tomee.beans;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -27,6 +29,7 @@ public class PointBean implements Serializable {
     private double selectedR = 1;
     private List<Point> points;
     private Point point;
+    private String sessionId;
 
     @Inject
     private PointsService pointsService;
@@ -35,7 +38,11 @@ public class PointBean implements Serializable {
 
     @PostConstruct
     public void loadPointsFromDb() {
-        points = databaseService.getPoints();
+        HttpSession session = getCurrentSession();
+        if (session != null) {
+            sessionId = session.getId();
+        }
+        points = databaseService.getPoints(sessionId);
         Collections.reverse(points);
     }
 
@@ -45,6 +52,7 @@ public class PointBean implements Serializable {
         point.setX(selectedX);
         point.setY(selectedY);
         point.setR(selectedR);
+        point.setSessionId(sessionId);
 
         if (pointsService.valid(point)) {
             point.setInFlag(pointsService.check(point));
@@ -59,5 +67,13 @@ public class PointBean implements Serializable {
         databaseService.addPoint(point);
         points.add(0, point);
         this.point = point;
+    }
+
+    private HttpSession getCurrentSession() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (facesContext != null) {
+            return (HttpSession) facesContext.getExternalContext().getSession(true);
+        }
+        return null;
     }
 }
