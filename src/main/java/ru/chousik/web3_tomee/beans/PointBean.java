@@ -1,15 +1,9 @@
 package ru.chousik.web3_tomee.beans;
 
-import jakarta.annotation.ManagedBean;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.annotation.FacesConfig;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.PersistenceContext;
 import lombok.Getter;
 import lombok.Setter;
 import ru.chousik.web3_tomee.database.DatabaseService;
@@ -19,14 +13,13 @@ import ru.chousik.web3_tomee.services.PointsService;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 @Named("pointBean")
 @Getter
 @Setter
-@ApplicationScoped
+@SessionScoped
 public class PointBean implements Serializable {
     private double selectedX = 0;
     private double selectedY;
@@ -36,14 +29,12 @@ public class PointBean implements Serializable {
 
     @Inject
     private PointsService pointsService;
-
-
-    private EntityManager entityManager;
+    @Inject
+    private DatabaseService databaseService;
 
     @PostConstruct
     public void loadPointsFromDb() {
-        entityManager = Persistence.createEntityManagerFactory("PostgresPU").createEntityManager();
-        points = entityManager.createQuery("SELECT p FROM Point p", Point.class).getResultList();
+        points = databaseService.getPoints();
         Collections.reverse(points);
     }
 
@@ -59,17 +50,12 @@ public class PointBean implements Serializable {
             point.setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             point.setExecutionTime(System.nanoTime() - startTime);
             System.err.println(point);
-
             this.addPoint(point);
         }
     }
 
     private void addPoint(Point point) {
-        // Добавляем точку в базу данных через JPA
-        entityManager.getTransaction().begin();  // Начинаем транзакцию
-        entityManager.persist(point);  // Сохраняем точку
-        entityManager.getTransaction().commit();  // Фиксируем транзакцию
-
+        databaseService.addPoint(point);
         points.add(0, point);
         this.point = point;
     }

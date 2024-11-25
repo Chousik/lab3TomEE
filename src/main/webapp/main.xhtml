@@ -3,38 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
     <title>Лабораторная работа №1</title>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"/>
     <script src="scripts/script.js"/>
     <script src="scripts/canvas.js"/>
-    <link rel="stylesheet" href="styles/main.css" />
+    <script src="scripts/validator.js"/>
+    <link rel="stylesheet" href="styles/main2.css" />
 </h:head>
 <h:body>
         <div class="all">
             <div class="main-container">
                 <h:form>
-                <div class="input-container">
-                    <div class="input_XYR element">
-                        <p:inputText id="xValueDisplay" value="#{pointBean.selectedX}" readonly="true" styleClass="input-field" />
-                        <p:slider for="xValue" value="#{pointBean.selectedX}" minValue="-3" maxValue="3" step="0.5" style="width: 210px;">
-                            <p:ajax update="xValueDisplay" />
-                        </p:slider>
-                            <h:inputHidden id="xValue" name="x" value="#{pointBean.selectedX}">
+                    <div class="input-container">
+                        <div class="input_XYR element">
+                            <label>X</label>
+                            <p:inputText id="xValueDisplay" value="#{pointBean.selectedX}" readonly="true" styleClass="input-field" />
+                            <p:slider for="xValue" display="xValueDisplay" id="xSlider" minValue="-3" maxValue="3" step="0.5" style="width: 210px;">
+                            </p:slider>
+                            <h:inputHidden id="xValue" value="#{pointBean.selectedX}">
                             </h:inputHidden>
-                    </div>
-                    <div class="input_XYR element">
-                        <label for="Y_input" class="input_text">Input Y:</label>
-                        <h:inputText name="Y-input" id="Y_input" placeholder="-5..5"
-                                     class="input" value="#{pointBean.selectedY}" />
-                    </div>
-                    <div class="input_XYR element">
-                        <p:inputText id="rValueDisplay" value="#{pointBean.selectedR}" readonly="true" styleClass="input-field" />
-                        <p:slider for="rValue" id="rSlider" minValue="1" maxValue="4" step="0.5" style="width: 210px;" />
-                        <h:inputHidden id="rValue" name="r" value="#{pointBean.selectedR}">
-                        </h:inputHidden>
-                    </div>
+                        </div>
+                        <div class="input_XYR element">
+                            <label for="Y_input" class="input_text">Input Y:</label>
+                            <h:inputText name="Y-input" id="Y_input" placeholder="-5..5"
+                                         class="input" value="#{pointBean.selectedY}">
+                                <f:validateDoubleRange minimum="-5" maximum="5" />
+                            </h:inputText>
+                        </div>
+                        <div class="input_XYR element">
+                            <label>R</label>
+                            <p:inputText id="rValueDisplay" value="#{pointBean.selectedX}" readonly="true" styleClass="input-field" />
+                            <p:slider for="rValue" id="rSlider" value= "#{pointBean.selectedR}" display="rValueDisplay"  minValue="1" maxValue="4" step="0.5" style="width: 210px;">
+                            </p:slider>
+                            <h:inputHidden id="rValue" value="#{pointBean.selectedR}">
+                            </h:inputHidden>
+                        </div>
                     <div class="canvas-container element" id="canvas-container">
                         <canvas id="canvas" class="canvas">Your browser is not supported</canvas>
                     </div>
@@ -74,14 +79,5 @@
             </div>
             </h:panelGroup>
         </div>
-
-    <script>
-        function updateValue(id, value) {
-            const element = document    .getElementById(id);
-            if (element) {
-                element.textContent = value;
-            }
-        }
-    </script>
 </h:body>
 </html>

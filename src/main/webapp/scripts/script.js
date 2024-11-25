@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    const canvas = new Canvas2('canvas');
+    const canvas = new Canvas('canvas');
 
     function updateCanvas() {
         const rElement = document.getElementById("j_id_8:rValue");

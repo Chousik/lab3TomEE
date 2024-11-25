@@ -35,19 +35,7 @@ body{
             "R C";
 }
 
-
-.radio_container{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-content: center;
-}
-
-.radio_container input{
-    transform:scale(1.4);
-    opacity:0.9;
-    cursor:pointer;
-}
-.buttons{
+.ui-button, .button{
     background: #F92C85;
     width: 90%;
     height: 120%;
@@ -58,6 +46,36 @@ body{
     border-radius: 0.5rem;
     cursor: pointer;
 }
+.ui-slider {
+    width: 100%;
+}
+
+.ui-slider.ui-slider-horizontal {
+    background: #F92C85;
+    height:12px;
+    border:none;
+}
+
+.ui-slider.ui-widget.ui-widget-content.ui-corner-all .ui-slider-handle {
+    width: 0;
+}
+
+span.ui-slider-handle.ui-corner-all.ui-state-default {
+    left: 50%;
+}
+
+.ui-slider .ui-slider-handle::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ff0100;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 50%;
+}
+
 .radio_container label{
     width: 100%;
 }
@@ -70,17 +88,10 @@ body{
     margin: 1rem 0.5rem 2rem 2rem;
 }
 
-.input_XYR>label, div, input{
+.input_XYR>label, div, input, .ui-inputtext{
     text-align: right;
     align-content: center;
     justify-content: center;
-}
-.slider{
-    justify-content: center;
-    margin: 1rem;
-    height: 1.5rem;
-    width: 70%;
-    border-radius: 5px;
 }
 
 .form_radio{
@@ -93,12 +104,12 @@ body{
     border-radius: 1rem;
 }
 
-.input{
-    text-align: left;
+.input, .ui-inputtext{
+    text-align: right;
     font-size: 1.3rem;
     margin: 1rem;
-    height: 1.5rem;
-    width: 70%;
+    height: 2rem;
+    width: 55%;
     border-radius: 5px;
     /*box-shadow: 0 0 10px #90908f;*/
 }
@@ -111,9 +122,6 @@ body{
     place-items: center;
 }
 
-.input_text{
-    text-align: right;
-}
 
 .button-container{
     width: 50%;
@@ -125,7 +133,7 @@ body{
 
 
 
-.buttons:active{
+.ui-button:active{
     background: #ff0100;
 }
 
