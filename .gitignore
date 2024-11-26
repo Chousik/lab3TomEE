@@ -44,3 +44,5 @@ bin/
 /.idea/
 /gradle/
 /data/
+/.gradle/
+/apache-tomee-webprofile-10.0.0-M3/
