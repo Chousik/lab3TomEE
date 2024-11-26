@@ -38,8 +38,8 @@ public class PointsService implements ServiceInterface<Point>, Serializable {
         double r = point.getR();
 
         boolean itTriangle = (x <= 0 && y >= 0 && (2 * x + r) >= y);
-        boolean itCircle = (x < 0 && y < 0 && (x * x + y * y) <= r*r/4);
-        boolean itRectangle = (x > 0 && x < r && y < 0 && y > -r);
+        boolean itCircle = (x <= 0 && y <= 0 && (x * x + y * y) <= r*r/4);
+        boolean itRectangle = (x >= 0 && x <= r && y < 0 && y > -r);
 
         return itTriangle || itCircle || itRectangle;
     }
