@@ -1,14 +1,3 @@
 <Context>
-    <!-- Настройка ресурса базы данных -->
-    <Resource name="jdbc/PostgresDB"
-              auth="Container"
-              type="javax.sql.DataSource"
-              driverClassName="org.postgresql.Driver"
-              url="jdbc:postgresql://localhost:5432/postgres_webapp"
-              username="postgres"
-              password="postgres"
-              maxTotal="20"
-              maxIdle="10"
-              maxWaitMillis="10000"
-              factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" />
+    <ResourceLink name="jdbc/PostgresDS" global="PostgresDS" auth="Container" type="javax.sql.DataSource"/>
 </Context>

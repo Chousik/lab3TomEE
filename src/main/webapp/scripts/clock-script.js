@@ -103,3 +103,6 @@ window.setInterval(
         displayCanvas();
     }
     , 1000);
+document.addEventListener("DOMContentLoaded", function() {
+    displayCanvas();
+});
