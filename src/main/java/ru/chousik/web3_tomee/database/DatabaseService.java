@@ -27,14 +27,17 @@ public class DatabaseService implements Serializable {
         entityManager.getTransaction().begin();
         entityManager.persist(point);
         entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     public List<Point> getPoints(String sessionId) {
         EntityManager entityManager = manager();
-        return entityManager.createQuery(
+        List<Point> points = entityManager.createQuery(
                         "SELECT p FROM Point p WHERE p.sessionId = :sessionId", Point.class)
                 .setParameter("sessionId", sessionId)
                 .getResultList();
+        entityManager.close();
+        return points;
     }
     static {
         try {
