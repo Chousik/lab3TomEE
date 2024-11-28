@@ -1,7 +1,7 @@
 <tomee>
     <Resource id="PostgreSQL Database" type="DataSource">
         JdbcDriver  = org.postgresql.Driver
-        JdbcUrl     = jdbc:postgresql://db:5432/postgres_webapp
+        JdbcUrl     = jdbc:postgresql://localhost:5432/postgres_webapp
         UserName    = postgres
         Password    = postgres
         JtaManaged  = false

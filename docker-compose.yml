@@ -1,6 +1,8 @@
 services:
   db:
-    image: postgres:latest
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
     restart: always
     expose:
       - "5432"
@@ -11,6 +13,8 @@ services:
       PGDATA: /data/postgres
     volumes:
       - ./data:/data/postgres
+    ports:
+      - "5432:5432"
   tomee:
     build:
       context: .
