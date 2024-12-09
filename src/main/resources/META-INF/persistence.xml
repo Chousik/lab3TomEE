@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
     <persistence-unit name="PostgresPU">
         <class>ru.chousik.web3_tomee.models.Point</class>
@@ -7,10 +6,10 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://db:5432/postgres_webapp"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
             <property name="jakarta.persistence.jdbc.password" value="postgres"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="eclipselink.logging.level" value="INFO"/>
+            <property name="eclipselink.jdbc.dialect" value="org.eclipse.persistence.platform.database.PostgreSQLPlatform"/>
+            <property name="eclipselink.ddl-generation" value="update"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="both"/>
         </properties>
     </persistence-unit>
 </persistence>

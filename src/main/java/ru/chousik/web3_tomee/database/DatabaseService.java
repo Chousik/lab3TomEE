@@ -1,17 +1,12 @@
 package ru.chousik.web3_tomee.database;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
-import lombok.NoArgsConstructor;
-import ru.chousik.web3_tomee.beans.PointBean;
 import ru.chousik.web3_tomee.models.Point;
 
 import java.io.Serializable;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 

@@ -1,0 +1,173 @@
+package managerBeans;
+
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
+import models.Point;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@Stateless
+public class DataBaseManager implements Serializable {
+
+    @PersistenceContext(name = "myApp")
+    private EntityManager entityManager;
+
+    @Transactional
+    public void insertIntoTable(Point point) {
+        if (point != null) {
+            entityManager.persist(point);
+        }
+    }
+
+    @Transactional
+    public ArrayList<Point> getPoints() {
+        TypedQuery<Point> query = entityManager.createQuery("SELECT p FROM Point p", Point.class);
+        if(!query.getResultList().isEmpty())  return (ArrayList<Point>) query.getResultList();
+        return new ArrayList<>();
+    }
+
+
+<persistence-unit name="myApp" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>java:/jdbc/PostgresDS</jta-data-source>
+        <class>models.Point</class>
+        <properties>
+            <property name="eclipselink.deploy-on-startup" value="true"/>
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+        </properties>
+
+    </persistence-unit>
+
+
+
+
+
+    public class PointBean implements Serializable {
+
+        private double selectedX = 0;
+        private double selectedY;
+        private double selectedR = 1;
+        private List<Point> points;
+        private Point point;
+        private String sessionId;
+
+        @Inject
+        private PointsService pointsService;
+
+        @PersistenceContext
+        private EntityManager entityManager;
+
+        @PostConstruct
+        public void loadPointsFromDb() {
+            HttpSession session = getCurrentSession();
+            if (session != null) {
+                sessionId = session.getId();
+            }
+            points = entityManager.createQuery("SELECT p FROM Point p WHERE p.sessionId = :sessionId", Point.class)
+                    .setParameter("sessionId", sessionId)
+                    .getResultList();
+            Collections.reverse(points);
+        }
+
+        public void checkPoint() {
+            long startTime = System.nanoTime();
+            Point point = new Point();
+            point.setX(selectedX);
+            point.setY(selectedY);
+            point.setR(selectedR);
+            point.setSessionId(sessionId);
+
+            if (pointsService.valid(point)) {
+                point.setInFlag(pointsService.check(point));
+                point.setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                point.setExecutionTime(System.nanoTime() - startTime);
+                PrimeFaces.current().executeScript("printDot(" + point.getX() + ", " + point.getY() + ", " + point.isInFlag() + ");");
+                this.addPoint(point);
+            }
+        }
+
+        private void addPoint(Point point) {
+            entityManager.getTransaction().begin();
+            entityManager.persist(point);
+            entityManager.getTransaction().commit();
+            points.add(0, point);
+            this.point = point;
+        }
+
+        private HttpSession getCurrentSession() {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            if (facesContext != null) {
+                return (HttpSession) facesContext.getExternalContext().getSession(true);
+            }
+            return null;
+        }
+    }
+
+
+    <h:outputLabel for="ApplicationScoped" value="ApplicationScoped: #{applicationScopedBean.x}" styleClass="controls-label"/>
+                <h:outputLabel for="RequestScoped" value="RequestScoped: #{requestScopedBean.x}" styleClass="controls-label"/>
+                <h:outputLabel for="SessionScoped" value="SessionScoped: #{sessionScopedBean.x}" styleClass="controls-label"/>
+                <h:form>
+                    <h:outputLabel for="ViewScoped" value="ViewScoped: #{viewScopedBean.x}" id="controls-label-viewscoped" styleClass="controls-label"/>
+                    <h:commandButton value="Check Point"
+                        action="#{viewScopedBean.inc()}"
+                        styleClass="submit-button">
+                    <f:ajax execute="@form" render="controls-label-viewscoped"/>
+                    </h:commandButton>
+                </h:form>
+
+
+
+                let range = {
+                  from: 1,
+                  to: 5,
+
+                  async *[Symbol.asyncIterator]() { // то же, что и [Symbol.asyncIterator]: async function*()
+                    for(let value = this.from; value <= this.to; value++) {
+
+                      // пауза между значениями, ожидание
+                      await new Promise(resolve => setTimeout(resolve, 1000));
+
+                      yield value;
+                    }
+                  }
+                };
+
+                (async () => {
+
+                  for await (let value of range) {
+                    alert(value); // 1, потом 2, потом 3, потом 4, потом 5
+                  }
+
+                })();
+
+
+                function* generateSequence(start, end) {
+                  for (let i = start; i <= end; i++) {
+                    yield i;
+                  }
+                }
+
+                for(let value of generateSequence(1, 5)) {
+                  alert(value); // 1, потом 2, потом 3, потом 4, потом 5
+                }
+
+
+                <div contentEditable id="elem">Отредактируй <b>меня</b>, пожалуйста</div>
+
+                <script>
+                let observer = new MutationObserver(mutationRecords => {
+                  console.log(mutationRecords); // console.log(изменения)
+                });
+
+                // наблюдать за всем, кроме атрибутов
+                observer.observe(elem, {
+                  childList: true, // наблюдать за непосредственными детьми
+                  subtree: true, // и более глубокими потомками
+                  characterDataOldValue: true // передавать старое значение в колбэк
+                });
+                </script>
