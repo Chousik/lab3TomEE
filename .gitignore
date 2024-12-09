@@ -5,7 +5,7 @@ build/
 !**/src/test/**/build/
 
 
-### IntelliJ IDEA ###
+### IntelliJ IDEgit A ###
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -47,3 +47,4 @@ bin/
 /.gradle/
 /apache-tomee-webprofile-10.0.0-M3/
 /images/
+/apache-tomee-webprofile/
